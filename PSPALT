@@ -1,0 +1,140 @@
+// ==UserScript==
+// @name         pspalabortrack.code
+// @version      0.1
+// @description  CALM CODE buttons for FCLM codes in Labor Tracking Kiosk <> DIY Guide: https://drive.corp.amazon.com/personal/von/TamperMonkey/a.mod.LaborTrackingKiosk
+// @author       @thefoo
+// @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
+// @match        https://fcmenu-iad-regionalized.corp.amazon.com/*/laborTrackingKiosk*
+// @match        http://fcmenu-iad-regionalized.corp.amazon.com/*/laborTrackingKiosk*
+// @exclude      http://fcmenu-iad-regionalized.corp.amazon.com/do/laborTrackingKiosk*
+// @exclude      https://fcmenu-iad-regionalized.corp.amazon.com/do/laborTrackingKiosk*
+// @downloadURL  https://axzile.corp.amazon.com/-/carthamus/script/a.mod.labor-tracking-kiosk
+// @updateURL    https://axzile.corp.amazon.com/-/carthamus/script/a.mod.labor-tracking-kiosk
+// ==/UserScript==
+var css = document.createElement("style");
+css.innerHTML += `
+* {
+    box-sizing: border-box;
+}
+#body {
+    display: flex;
+    flex-flow: row nowrap;
+    align-content: space-around;
+    justify-content: space-around;
+}
+#body > .login {
+    margin: 1;
+    width: 60%;
+    width: 380px;
+    height: 400px;
+}
+#body > #toolbox {
+    width: 65%;
+    flex-grow: 0;
+    font-size: 180%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-content: space-around;
+    justify-content: space-around;
+}
+#body > #toolbox > .row {
+    margin-bottom: 4px;
+}
+#body > #toolbox > .row > h1 {
+    border-bottom: 4px inset;
+    margin-bottom: 4px;
+    padding: 1 8px;
+    background: rgba(255,255,255,0.5);
+}
+#body > #toolbox > .row > .roles {
+    display: flex;
+    flex-flow: row wrap;
+    padding: 1 4px;
+    max-width: 1500px;
+    max-height: 400px;
+}
+#body > #toolbox > .row > .roles > button {
+    display: table-row;
+    width: 200px;
+    height: 90px;
+    background: 3498DB_1￼;
+    border-radius: 10px;
+    border:4px solid black;
+    color: FFFFFF_1￼;
+    font-size: 22px;
+
+    margin: 0 32px;
+}
+
+#body > #toolbox > .row > .roles > button:hover {
+    background: 3CB0FD_1￼;
+}
+`;
+document.querySelector("head").appendChild(css);
+function movebox() {
+    let waitForIt;
+    if (waitForIt = document.querySelector('#body > .login')) {
+        waitForIt.style = '';
+    } else {
+        setTimeout(movebox, 500);
+    }
+}
+movebox();
+var codes = [
+    {
+        title: 'INBOUND PS',
+        roles: [
+            {name: 'UR LINES', code: 'RECON'},
+            {name:'UIS', code: 'UISPS'},
+            {name: 'DAMAGELAND', code: 'IBPS'},
+            {name: 'ISS', code: 'DAMAGES'},
+            {name: 'AROS', code: 'LPSWEEP'},
+            {name: '', code: 'CRSORT'},
+            {name: 'WATER SPIDER', code: 'CRSDCNTF'},
+            {name: '5S', code: 'CR5S'},
+        ]
+    },
+    {
+        title: 'DIRECT',
+        roles: [
+            {name: 'ADD IN', code: 'CRADD'},
+            {name: 'HAZMAT', code: 'CRHAZGR'},
+            {name: 'PROBLEM SOLVE', code: 'REBTRN3'},
+             {name: 'Team & Mech', code: 'SCRET011'},
+            {name: 'TEST', code: 'CRETREF'},
+        ]
+    },
+    {
+        title: 'TRAIN',
+        roles: [
+            {name: 'AMBASSADOR', code: 'CRAMB'},
+            {name: 'TRAINING', code: 'CRTR'},
+        ]
+    },
+    {
+        title: 'STOP',
+        roles: [
+            {name: 'ISTOP', code: 'ISTOP'},
+           	{name: 'MSTOP', code: 'MSTOP'},
+        ]
+    },
+];
+let toolbox = document.createElement('div'), toolboxHTML = '';
+toolbox.id = "toolbox";
+for (let shift of codes) {
+    console.log(shift);
+    toolboxHTML += '<div class="row"><h1>' + shift.title + '</h1><div class="roles">';
+    for (let role of shift.roles) {
+        toolboxHTML += '<button value="' + role.code + '">' + role.name + '</button>';
+    }
+    toolboxHTML += '</div></div>';
+}
+toolbox.innerHTML = toolboxHTML
+document.querySelector('#body').appendChild(toolbox);
+Array.from(document.querySelectorAll('#body > #toolbox > .row > .roles > button')).forEach(function(el){
+    el.addEventListener('click', function () {
+        document.getElementById('calmCode').value = el.value
+        document.forms[0].submit()
+    })
+})
+
