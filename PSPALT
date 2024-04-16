@@ -57,17 +57,15 @@ css.innerHTML += `
     display: table-row;
     width: 200px;
     height: 90px;
-    background: 3498DB_1￼;
+    background: 3498DB_1;
     border-radius: 10px;
     border:4px solid black;
-    color: FFFFFF_1￼;
+    color: FFFFFF_1;
     font-size: 22px;
-
     margin: 0 32px;
 }
-
 #body > #toolbox > .row > .roles > button:hover {
-    background: 3CB0FD_1￼;
+    background: 3CB0FD_1;
 }
 `;
 document.querySelector("head").appendChild(css);
@@ -86,29 +84,17 @@ var codes = [
         roles: [
             {name: 'UR LINES', code: 'RECON'},
             {name:'UIS', code: 'UISPS'},
-            {name: 'DAMAGELAND', code: 'IBPS'},
-            {name: 'ISS', code: 'DAMAGES'},
-            {name: 'AROS', code: 'LPSWEEP'},
-            {name: '', code: 'CRSORT'},
-            {name: 'WATER SPIDER', code: 'CRSDCNTF'},
-            {name: '5S', code: 'CR5S'},
+            {name: 'BL/BUFFER', code: 'IBPS'},
+            {name: 'ISS DMAGE', code: 'DAMAGES'},
+            {name: 'IBD PS', code: 'LPSWEEP'},
+            {name: 'ISS', code: 'ICVR'},
         ]
     },
     {
-        title: 'DIRECT',
+        title: 'OUTBOUND/PA',
         roles: [
-            {name: 'ADD IN', code: 'CRADD'},
-            {name: 'HAZMAT', code: 'CRHAZGR'},
-            {name: 'PROBLEM SOLVE', code: 'REBTRN3'},
-             {name: 'Team & Mech', code: 'SCRET011'},
-            {name: 'TEST', code: 'CRETREF'},
-        ]
-    },
-    {
-        title: 'TRAIN',
-        roles: [
-            {name: 'AMBASSADOR', code: 'CRAMB'},
-            {name: 'TRAINING', code: 'CRTR'},
+            {name: 'EOL OB', code: 'PSTOPS'},
+            {name: 'PA', code: 'LDOCK'},
         ]
     },
     {
@@ -137,4 +123,3 @@ Array.from(document.querySelectorAll('#body > #toolbox > .row > .roles > button'
         document.forms[0].submit()
     })
 })
-
